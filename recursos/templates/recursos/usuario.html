@@ -1,0 +1,52 @@
+{% extends 'recursos/base.html' %}
+
+{% block content %}
+<div class="row" style="margin-right:0">
+  <div class="panel-body col-xs-12 col-sm-6 col-sm-offset-3">
+	{% load recursos_tags %}
+	<a href="{% url 'recursos:usuarios' %}" class="btn btn-default"><i class="fa fa-chevron-left"></i> Volver a Lista de Usuarios</a>
+
+	<!-- Datos del usuario -->
+	<h1><i class="fa fa-user"></i> {{ usuario.username }}</h1>
+	<br>
+	<table class="table">
+		<tr>
+			<th>Nombre</th>
+			<td>{{ usuario.first_name|default:'-' }}</td>
+		</tr>
+		
+		<tr>
+			<th>Apellidos</th>
+			<td>{{ usuario.last_name|default:'-' }}</td>
+		</tr>
+			
+		<tr>
+			<th>E-mail</th>
+			<td><a href="mailto:{{usuario.email}}" target="_blank"><i class="fa fa-envelope"></i></a> {{ usuario.email }}</td>
+		</tr>
+		
+		{% if perms.auth.es_gestor %}
+			<tr>
+				<th>Gestor</th>
+				{% if usuario|has_perm:'auth.es_gestor' %}
+					<td>Sí</td>
+				{% else %}
+					<td>No</td>
+				{% endif %}
+			</tr>
+			
+			<tr>
+				<th>Fecha de alta</th>
+				<td>{{ usuario.date_joined }}</td>
+			</tr>
+			
+			<tr>
+				<th>Último acceso</th>
+				<td>{{ usuario.last_login }}</td>
+			</tr>
+		{% endif %}
+	</table>
+  </div>
+</div>
+
+{% endblock %}

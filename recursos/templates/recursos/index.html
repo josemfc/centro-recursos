@@ -1,0 +1,39 @@
+{% extends 'recursos/base.html' %}
+
+{% block content %}
+	<article id="contenido" class="panel-body">
+		<h1>Últimos recursos</h1>
+	
+		{% for recurso in ultimos_rec %}
+			<div class="col-xs-12 col-sm-6 col-md-3">
+			  <div class="recurso">
+			    <a href="{% url 'recursos:recurso' recurso.id %}">
+				<h3>{{ recurso.titulo }}</h3>
+				
+				{% if recurso.tipo == 1 %}
+					<p class="centrado"><i class="fa fa-video-camera fa-5x" aria-hidden="true"></i>
+					</p>
+				{% else %}
+					<p class="centrado"><i class="fa fa-file-pdf-o fa-5x" aria-hidden="true"></i>
+					</p>
+				{% endif %}
+				</a>
+				
+				<br>
+				<p>{{ recurso.descripcion }}</p>
+				<p>{{ recurso.categoria.nombre }}</p>
+				
+				{% if recurso.tipo == 1 %}
+					<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{ recurso.duracion }}<br>
+						<i class="fa fa-eye" aria-hidden="true"></i> {{ recurso.visualizaciones }}
+					</p>
+				{% endif %}
+			  </div>
+			</div>
+		{% endfor %}
+		
+		<div class="col-xs-12">
+			<a href="{% url 'recursos:nuevo_recurso' %}"><button class="btn btn-amarillo">Crear nuevo recurso</button></a>
+		</div>
+	</article>
+{% endblock %}

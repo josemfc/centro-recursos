@@ -1,0 +1,23 @@
+{% extends 'directorio/base.html' %}
+
+{% block content %}
+	<h2 class="form-heading"><i class="fa fa-user-plus"></i> Nuevo Usuario</h2>
+	<br>
+	<form role="form" method="post" action="">
+		{% csrf_token %}
+			
+		<table class="table">
+			{% for field in form %}
+				<tr>
+					<td>{{ field.label_tag }}</td>
+					<td>{{ field }} {{ field.errors.as_text }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+		<br>
+
+		<input type="submit" class="btn btn-primary" value="Crear">
+		<a href="{% url 'directorio:usuarios' %}" class="btn btn-info pull-right"><i class="fa fa-times"></i> Cancelar</a>
+	</form>
+	
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'recursos/base.html' %}
+
+{% block content %}
+	<article class="content-form col-xs-12 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+		<h1>Nuevo Recurso</h1>
+		
+		<form method="post" action="">
+			{% csrf_token %}
+		
+			
+			<ul style="list-style-type: none;">
+				{{ nuevo_rec_form.as_p }}
+			</ul>
+			
+			<input type="submit" value="Enviar" class="btn-amarillo"/>
+		</form>
+	</article>
+{% endblock %}

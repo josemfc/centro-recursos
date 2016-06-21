@@ -1,0 +1,33 @@
+{% extends 'recursos/base.html' %}
+
+{% block content %}
+
+  {% if not user.is_authenticated %}
+	<form class="form-signin" method="post" action="">
+		{% csrf_token %}
+
+		<h2 class="form-signin-heading">Introduzca sus datos</h2>
+		<br>
+		
+		{% for key, value in form.errors.items %}
+			<p>{% if key != '__all__' %}{{ key }} {% endif %}{{ value.as_text }}</p>
+		{% endfor %}
+		<p>{{ mensaje }}</p>
+		
+		<table>
+			{% for field in form %}
+				<tr><td>{{ field.label_tag }} </td><td>{{ field }}</td></tr>
+			{% endfor %}
+		</table>
+		<br><br>
+		
+		<button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i>  Conectarse</button>
+		
+		<br>
+		<a href="">¿Olvidó su contraseña?</a>
+	</form>
+  {% else %}
+	<h3><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Hay una sesión activa.</h3>
+	<p>Haga <a href="{% url 'recursos:index' %}">clic aquí</a> para ir a la página principal o al botón 'Cerrar sesión' arriba a la derecha para salir de la sesión actual.</p>
+  {% endif %}
+{% endblock %}

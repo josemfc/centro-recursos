@@ -1,0 +1,54 @@
+{% extends 'recursos/base.html' %}
+
+{% block content %}
+<div class="row" style="margin-right:0">
+  <div class="panel-body col-xs-12 col-sm-6 col-sm-offset-3">
+	<h2><i class="fa fa-users"></i> Lista de usuarios</h2>
+	{% if perms.auth.es_gestor %}
+		<a href="#" class="btn btn-primary"><i class="fa fa-user-plus"></i> Nuevo Usuario</a>
+		<br><br>
+	{% endif %}
+	
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>Nombre de usuario</th>
+				<th>email</th>
+				<th>Nombre</th>
+				<th>Apellido/s</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+			{% for u in usuarios %}
+				<tr>
+					<td><i class="fa fa-user"></i> <a href="{% url 'recursos:usuario' u.id %}">{{ u.username }}</a></td>
+					<td><a href="mailto:{{u.email}}" target="_blank"><i class="fa fa-envelope"></i></a> {{ u.email }}</td>
+					<td> {{ u.first_name|default:'-' }}</td>
+					<td> {{ u.last_name|default:'-' }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	
+	<div class="pagination">
+		<span class="step-links">
+			<div class="pag-space">
+				{% if usuarios.has_previous %}
+					<a href="?page=1">Primera</a>&nbsp;&nbsp;&nbsp;
+					<a href="?page={{ usuarios.previous_page_number }}"><i class="fa fa-chevron-left"></i></a>
+				{% endif %}
+			</div>
+
+			{{ usuarios.number }} de {{ usuarios.paginator.num_pages }}
+
+			{% if usuarios.has_next %}
+				<a href="?page={{ usuarios.next_page_number }}"><i class="fa fa-chevron-right"></i></a>&nbsp;&nbsp;&nbsp;
+				<a href="?page={{ usuarios.paginator.num_pages }}">Última</a>
+			{% endif %}
+		</span>
+	</div>
+  </div>
+</div>
+
+{% endblock %}

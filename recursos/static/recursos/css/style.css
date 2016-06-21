@@ -1,0 +1,149 @@
+* {
+	margin:0;
+} 
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body  {
+	color: #3d3d3d;
+	font-family: 'Raleway', Helvetica, Arial, sans-serif;
+	font-weight: 500;
+	margin: 0 0 35px; /* bottom = footer height */
+}
+
+body > .container {
+	width: 100%;
+}
+
+h1{
+	font-weight: bold;
+	margin-left: .5em;
+}
+
+h2 {
+	font-weight: bold;
+}
+
+a {
+	color: #3d3d3d;
+}
+
+a:hover {
+	color: #d0cc08;
+	text-decoration: none;
+}
+
+.color-cua {
+	color: #ede709;
+}
+
+.color-error {
+	color: #e60000;
+}
+
+.centrado {
+	text-align: center;
+}
+
+.tit-header {
+	color: #fff;
+}
+
+.pensando {
+	display: none;
+	margin-bottom: 2%;
+	margin-left: 45%;
+}
+
+/* Footer */
+.footer {
+	height: 35px;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: #3d3d3d;
+	color: #fff;
+}
+
+.footer p {
+	text-align: center;
+	font-weight: bold;
+	padding-top: 7px;
+	margin-bottom: 0;
+}
+
+/*Estilos de los encabezados */
+.header{
+	padding: 1.2%;
+	background-color: #3d3d3d;
+}
+
+body .header:nth-child(2) {/*.header {*/
+	padding: 0%;
+
+	/* Color de fondo gradiente (generado automáticamente) */
+	background: rgba(237,237,237,1);/* Old Browsers */
+	background: -moz-linear-gradient(top, rgba(237,237,237,1) 0%, rgba(237,237,237,1) 11%, rgba(226,226,226,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(237,237,237,1)), color-stop(11%, rgba(237,237,237,1)), color-stop(100%, rgba(226,226,226,1)));/* Chrome, Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(237,237,237,1) 0%, rgba(237,237,237,1) 11%, rgba(226,226,226,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(237,237,237,1) 0%, rgba(237,237,237,1) 11%, rgba(226,226,226,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(237,237,237,1) 0%, rgba(237,237,237,1) 11%, rgba(226,226,226,1) 100%); /* IE 10+ */
+	background: linear-gradient(to bottom, rgba(237,237,237,1) 0%, rgba(237,237,237,1) 11%, rgba(226,226,226,1) 100%);/* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#e2e2e2', GradientType=0 );/* IE6-9 */
+}
+
+/* Estilos miga de pan */
+.miga {
+	padding: .6%;
+}
+
+.miga > span {
+    font-size: 1.4em;
+}
+
+/* Formularios */
+.btn-amarillo {
+	background-color: #ede709;
+	border: 0px;
+	border-radius: 0px;
+	color:  #3d3d3d;
+	display: block;
+	font-weight: bold;
+	height: 45px;
+	padding: 12px 40px;
+	margin: auto;
+}
+
+/* Formulario de login.html */
+.form-signin {
+  background-color: #eee;  
+  max-width: 400px;
+  padding: 15px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-signin label {
+	margin-left: 2em;
+}
+
+.form-signin input {
+	margin-bottom: .3em;
+	margin-left: 3%;
+}
+
+.form-signin .form-signin-heading {
+  margin-bottom: 10px;
+}
+
+/* index */
+.recurso {
+	border: 1px solid #e6e6e6;
+	border-radius: 5px;
+	margin-bottom: 25px;
+	padding: 0 5%;
+}
+

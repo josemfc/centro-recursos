@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">	<!-- Mobile friendly -->
+		<meta name="author" content="José María Fernández Campos" />
+		{% load staticfiles %}
+		
+		<title>Centro de Recursos</title>
+		<link rel="icon" type="image/png" href="{% static 'recursos/img/favicon.png' %}">
+		
+		<!-- CSS includes -->
+		<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-7s5uDGW3AHqw6xtJmNNtr+OBRJUlgkNJEo78P4b0yRw= sha512-nNo+yCHEyn0smMxSswnf/OnX6/KwJuZTlNZBjauKhTK0c+zT+q5JOCx0UFhXQ6rJR9jg6Es8gPuD2uZcYDLqSw==" crossorigin="anonymous" />
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+		<link rel="stylesheet" type="text/css" href="{% static 'recursos/css/style.css' %}" />
+		
+		<!-- JavaScript Includes -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js" defer></script>
+		<script>window.jQuery || document.write('<script src="{% static 'recursos/js/vendor/jquery-1.12.0.min.js' %}" defer><\/script>')</script>
+		<script src="{% static 'recursos/js/vendor/jquery.init.js' %}" defer></script>
+		<script src="{% static 'recursos/js/vendor/bootstrap.min.js' %}" defer></script>
+        <script src="{% static 'recursos/js/main.js' %}" defer></script>
+	</head>
+
+	<body>
+		<div class="header clearfix">
+			<span class="fa-stack fa-3x pull-left">
+				<i class="fa fa-circle fa-stack-2x color-cua"></i>
+				<i class="fa fa-star fa-stack-1x"></i>
+			</span>
+			
+			<h1 class="pull-left"> <a href="{% url 'recursos:index' %}"><span class="tit-header">Centro de Recursos</span></a></h1>
+		</div>
+		
+		<!-- Static navbar -->
+		<nav class="navbar navbar-default header" role="navigation">
+			<div class="navbar-header">
+				<a href="/" class="navbar-brand">Centro de recursos</a>
+				
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li><a href="{% url 'recursos:categorias' %}">Categorías</a></li>
+					{% if perms.auth.es_gestor %}
+						<li><a href="{% url 'recursos:usuarios' %}">Usuarios</a></li>
+					{% endif %}
+				</ul>
+				
+				<ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}
+						<li><a href=""><i class="fa fa-user"></i> Conectado como: {{ user.username }} </a></li>
+						<li><a href="{% url 'recursos:logout' %}"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
+					{% else %}
+						<li><a href="{% url 'recursos:login' %}"><i class="fa fa-sign-in"></i> Iniciar sesión</a></li>
+					{% endif %}
+				</ul>
+			</div>
+		</nav>
+
+		<!--<div class="header">
+			<div class="miga">
+				<span><strong>Centro de recursos</strong></span>
+			</div>
+			
+			<ul class="nav navbar-nav navbar-right">
+				{% if user.is_authenticated %}
+					<li><a href=""><i class="fa fa-user"></i> Conectado como: {{ user.username }} </a></li>
+					<li><a href="{% url 'recursos:logout' %}"><i class="fa fa-sign-out"></i> Cerrar sesión</a></li>
+				{% else %}
+					<li><a href="{% url 'recursos:login' %}"><i class="fa fa-sign-in"></i> Iniciar sesión</a></li>
+				{% endif %}
+			</ul>
+		</div>-->
+	
+		<!-- Bloque principal -->
+		{% block content %}{% endblock %}
+			
+		<!-- Pie de páginal -->
+		<footer class="footer">
+			<div class="container">
+				<p>Grupo Asturias Digital</p>
+			</div>
+		</footer>
+	</body>
+</html>
