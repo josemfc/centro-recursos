@@ -3,17 +3,17 @@
 {% block content %}
   <div class="row" style="margin-right:0">
 	<div class="panel-body col-xs-12 col-sm-6 col-sm-offset-3">
-		<div>
+		<div >
 			<a href="{% url 'recursos:index' %}"><i class="fa fa-home"></i></a>
 		</div>
-		
-		<h2>Categorías de recursos</h2>
+	
+		<h2>Foros por categoría:</h2>
 		
 		<table class="table table-hover">
 			<tbody>
 				{% for c in categorias %}
 					<tr>
-						<td><i class="fa fa-caret-right"></i> <a href="{% url 'recursos:categoria' c.id %}">{{ c.nombre }}</a></td>
+						<td><i class="fa fa-caret-right"></i> <a href="{% url 'recursos:cat_foros' c.id %}">{{ c.nombre }}</a></td>
 					</tr>
 				{% endfor %}
 			</tbody>

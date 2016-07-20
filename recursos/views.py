@@ -7,8 +7,8 @@ from recursos.forms import *
 
 
 def index(request):
-	ultimos_rec = Recurso.objects.all().order_by('-id')[:8]
-	context = { 'ultimos_rec': ultimos_rec }
+	ultimos_vid = Video.objects.all().order_by('-id')[:8]
+	context = { 'ultimos_vid': ultimos_vid }
 	return render(request, 'recursos/index.html', context)
 	
 
@@ -88,35 +88,72 @@ def usuario(request, id_usuario):
 	return render(request, 'recursos/usuario.html', { 'usuario': usuario })
 	
 
-###-------------------Gestión de recursos----------------------------###
-# Nuevo recurso
-def nuevo_recurso(request):
+###-------------------Gestión de vídeos----------------------------###
+# Nuevo vídeo
+@login_required
+@permission_required("auth.es_gestor", login_url="recursos:index")
+def nuevo_video(request):
 	if request.method == 'POST':
-		nuevo_rec_form = NuevoRecursoForm(request.POST)
+		nuevo_vid_form = NuevoVideoForm(request.POST)
 		
-		if nuevo_rec_form.is_valid():
-			#nuevo_rec_form.fecha_pub = 
-			nuevo_recurso = nuevo_rec_form.save()
+		if nuevo_vid_form.is_valid():
+			#nuevo_vid_form.fecha_pub = 
+			nuevo_video = nuevo_vid_form.save()
 
-			return redirect('recursos:recurso', nuevo_recurso.id)
+			return redirect('recursos:video', nuevo_video.id)
 
 		else:   # Formulario no válido
-			context = { 'nuevo_rec_form': nuevo_rec_form }
+			context = { 'nuevo_vid_form': nuevo_vid_form }
 
-			return render(request, 'recursos/nuevo_recurso.html', context)
+			return render(request, 'recursos/nuevo_video.html', context)
 
 	else:
-		nuevo_rec_form = NuevoRecursoForm()
+		nuevo_vid_form = NuevoVideoForm()
 
-		context = { 'nuevo_rec_form': nuevo_rec_form }
+		context = { 'nuevo_vid_form': nuevo_vid_form }
 
-		return render(request, 'recursos/nuevo_recurso.html', context)
+		return render(request, 'recursos/nuevo_video.html', context)
 
-# Vista recurso
-def recurso(request, id_recurso):
-	recurso = get_object_or_404(Recurso, pk = id_recurso)
+# Vista vídeo
+def video(request, id_video):
+	video = get_object_or_404(Video, pk = id_video)
 	
-	return render(request, 'recursos/recurso.html', { 'recurso': recurso })
+	return render(request, 'recursos/video.html', { 'video': video })
+
+# Modificar un vídeo
+@login_required
+@permission_required('auth.es_gestor', login_url="recursos:index")
+def mod_video(request, id_video):
+	video = get_object_or_404(Video, pk=id_video)
+	
+	if request.method == 'POST':
+		modform = ModVideoForm(video, request.POST)
+
+		if modform.is_valid():
+			mod_video = modform.save()
+
+			return redirect('recursos:video', mod_video.id)
+
+		else:   # Formulario no válido
+			context = {'video': video, 'modform': modform }
+
+			return render(request, 'recursos/mod_video.html', context)
+	else:	# GET
+		modform = ModVideoForm(video)
+		context = { 
+			'video': video,
+			'modform': modform
+		}
+
+		return render(request, 'recursos/mod_video.html', context)
+
+
+# Borrar vídeo
+@login_required
+@permission_required('auth.es_gestor', login_url="recursos:index")
+def borrar_video(request, id_video):
+	video = get_object_or_404(Video, pk=id_video).delete()
+	return redirect('recursos:videos')
 
 
 ###-------------------Gestión de categorias----------------------------###
@@ -131,4 +168,33 @@ def categoria(request, id_categoria):
 	
 	return render(request, 'recursos/categoria.html', {'categoria': categoria})
 	
+
+###-------------------Gestión de foros----------------------------###
+"""def foros(request):
+	categorias = Categoria.objects.all()
 	
+	return render(request, 'recursos/foros.html', {'categorias': categorias})
+
+def cat_foros(request, id_categoria):
+	categoria = get_object_or_404(Categoria, pk = id_categoria)
+	foros = Foro.objects.filter(categoria = categoria)
+
+	return render(request, 'recursos/categorias_foros.html', { 'foros': foros })
+
+def foro(request, id_foro):
+	foro = get_object_or_404(Foro, pk = id_foro)
+	posts = Post.objects.filter(foro = foro)
+	
+	if request.method == 'POST':
+		post_form = NuevoRecursoForm(request.POST)
+	else:
+		post_form = NuevoRecursoForm()
+	
+	context = {
+		'foro': foro,
+		'posts': posts,
+		#'post_form': nuevo_rec_form,
+	}
+	
+	return render(request, 'recursos/foro.html', context)"""
+

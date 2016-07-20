@@ -1,0 +1,18 @@
+{% extends 'recursos/base.html' %}
+
+{% block content %}
+	<article class="content-form col-xs-12 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+		<h2><i class="fa fa-pencil-square-o"></i> Modificar Vídeo:</h2>
+	
+		<form class="margin-form" method="post" action="">
+			{% csrf_token %}
+			
+			<table class="table">
+				{{ modform.as_table }}
+			</table>
+			
+			<input type="submit" class="btn-amarillo" value="Modificar">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<button class="btn-amarillo"><a href="{% url 'recursos:video' video.id %}"><i class="fa fa-times"></i> Cancelar</a></button>
+		</form>
+	</article>
+{% endblock %}

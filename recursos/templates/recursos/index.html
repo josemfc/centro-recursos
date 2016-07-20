@@ -1,39 +1,40 @@
 {% extends 'recursos/base.html' %}
 
 {% block content %}
-	<article id="contenido" class="panel-body">
-		<h1>Últimos recursos</h1>
+	<article id="contenido" class="container">
+		<h2>Últimos vídeos</h2>
 	
-		{% for recurso in ultimos_rec %}
-			<div class="col-xs-12 col-sm-6 col-md-3">
-			  <div class="recurso">
-			    <a href="{% url 'recursos:recurso' recurso.id %}">
-				<h3>{{ recurso.titulo }}</h3>
-				
-				{% if recurso.tipo == 1 %}
-					<p class="centrado"><i class="fa fa-video-camera fa-5x" aria-hidden="true"></i>
+		<div class="row">
+			{% for video in ultimos_vid %}
+				<div class="col-xs-12 col-sm-6 col-md-3">
+				  <div class="recurso">
+					<a href="{% url 'recursos:video' video.id %}" title="Ver vídeo">
+					<h4>{{ video.titulo }}</h4>
+					
+					<p class="txt-centrado"><i class="fa fa-video-camera fa-5x" aria-hidden="true"></i>
 					</p>
-				{% else %}
-					<p class="centrado"><i class="fa fa-file-pdf-o fa-5x" aria-hidden="true"></i>
+					</a>
+					
+					<br>
+					<p>{{ video.categoria.nombre }}</p>
+					
+					<p><span title="Duración"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ video.duracion|time:"H:i:s" }}</span><br>
+						<span title="Visualizaciones"><i class="fa fa-eye" aria-hidden="true"></i> {{ video.visualizaciones }}</span>
 					</p>
-				{% endif %}
-				</a>
-				
-				<br>
-				<p>{{ recurso.descripcion }}</p>
-				<p>{{ recurso.categoria.nombre }}</p>
-				
-				{% if recurso.tipo == 1 %}
-					<p><i class="fa fa-clock-o" aria-hidden="true"></i> {{ recurso.duracion }}<br>
-						<i class="fa fa-eye" aria-hidden="true"></i> {{ recurso.visualizaciones }}
-					</p>
-				{% endif %}
-			  </div>
-			</div>
-		{% endfor %}
+				  </div>
+				</div>
+			{% empty %}
+				<div class="col-xs-12">
+					<h4 class="txt-centrado"><i class="fa fa-exclamation-triangle"></i> No se han encontrado vídeos.</h4>
+					<br>
+				</div>
+			{% endfor %}
 		
-		<div class="col-xs-12">
-			<a href="{% url 'recursos:nuevo_recurso' %}"><button class="btn btn-amarillo">Crear nuevo recurso</button></a>
+			{% if perms.auth.es_gestor %}
+				<div class="col-xs-12">
+					<a href="{% url 'recursos:nuevo_video' %}"><button class="btn btn-amarillo block-centered">Crear nuevo vídeo</button></a>
+				</div>
+			{% endif %}
 		</div>
 	</article>
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'recursos/base.html' %}
+
+{% block content %}
+	<article class="content-form col-xs-12 col-sm-6 col-sm-offset-3 col-lg-4 col-lg-offset-4">
+		<a href="{% url 'recursos:index' %}" class="btn btn-default"><i class="fa fa-chevron-left"></i> Atrás</a>
+	
+		<h1>Nuevo Vídeo</h1>
+		
+		<form class="margin-form" method="post" action="">
+			{% csrf_token %}
+		
+			
+			<ul style="list-style-type: none;">
+				{{ nuevo_vid_form.as_p }}
+			</ul>
+			
+			<br>
+			<input type="submit" value="Enviar" class="btn-amarillo block-centered"/>
+		</form>
+	</article>
+{% endblock %}

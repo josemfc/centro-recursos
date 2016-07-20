@@ -1,0 +1,36 @@
+{% extends 'recursos/base.html' %}
+
+{% block content %}
+	<div id="contenido" class="container">
+		<h1>{{ video.titulo }}</h1>
+	
+		<div class="row">
+			<article class="panel-body col-xs-12 col-sm-8">
+				<div class="embed-responsive embed-responsive-16by9">
+					<iframe src="{{ video.enlace }}" allowfullscreen="" class="embed-responsive-item"></iframe>
+				</div>
+				
+				<div>
+					<p>{{ video.descripcion }}</p>
+				</div>
+				
+				{% if perms.auth.es_gestor %}
+					<a href="{% url 'recursos:mod_video' video.id %}"><button class="btn btn-amarillo"><i class="fa fa-pencil-square-o"></i> Modificar vídeo</button></a>&nbsp;&nbsp;&nbsp;
+					<button id="toggler-btn1" class="btn btn-amarillo"><i class="fa fa-times"></i> Eliminar vídeo</button>
+					
+					<br>
+					<div id="toggler-container1" class="bloque-aviso col-xs-6">
+						<p class="txt-centrado"><strong>¿Está seguro de que desea eliminar el vídeo y todos los datos asociados al mismo?</strong>
+						</p>
+					
+						<button class="btn btn-amarillo borde-peq block-centered"><a href="{% url 'recursos:borrar_video' video.id %}">Confirmar</a></button>
+					</div>
+				{% endif %}
+			</article>
+			
+			<aside class="col-xs-12 col-sm-4">
+				<h3>Vídeos relacionados</h3>
+			</aside>
+		</div>
+	</div>
+{% endblock %}

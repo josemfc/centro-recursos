@@ -1,0 +1,32 @@
+{% extends 'recursos/base.html' %}
+
+{% block content %}
+  <div class="row" style="margin-right:0">
+	<div class="panel-body col-xs-12 col-sm-6 col-sm-offset-3">
+		<div>
+			<a href="{% url 'recursos:index' %}"><i class="fa fa-home"></i></a>
+			<i class="fa fa-long-arrow-right"></i> 
+			<a href="{% url 'recursos:foros' %}"><i class="fa fa-comments" aria-hidden="true"></i> Foros</a>
+			<i class="fa fa-long-arrow-right"></i> 
+			<a href="{% url 'recursos:cat_foros' foro.categoria.id %}"><i class="fa fa-list" aria-hidden="true"></i> {{ foro.categoria.nombre }}</a>
+		</div>
+		
+		<h2>{{ foro.titulo }}</h2>
+		
+		{% if posts %}
+			<table class="table table-hover">
+				<tbody>
+					{% for post in posts %}
+						<tr>
+							<td>El usuario {{ post.usuario.username }} escribió: "{{ post.content|safe }}" a fecha {{ post.fecha_escrito }}.</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<h2> Error: no se encontraron mensajes.</h2>
+		{% endif %}
+	</div>
+   </div>
+
+{% endblock %}

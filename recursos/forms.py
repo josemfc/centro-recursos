@@ -1,10 +1,9 @@
 from django import forms
 from django.forms import ModelForm
 from django.utils.translation import ugettext as _
-from recursos.models import Categoria, Recurso
-from django.contrib.auth.models import User, Group, Permission
 from django.utils.html import escape
 
+from recursos.models import *
 
 # Usuarios
 class LoginForm (forms.Form):
@@ -89,25 +88,52 @@ class RecuperarForm(forms.Form):
 			raise forms.ValidationError(_('Por favor, rellene ambos campos para continuar.'))
 """
 
-# Recurso
-class NuevoRecursoForm (forms.ModelForm):
+# Video
+class NuevoVideoForm (forms.ModelForm):
 	def __init__(self, *args, **kwargs):
-		super(NuevoRecursoForm, self).__init__(*args, **kwargs)
+		super(NuevoVideoForm, self).__init__(*args, **kwargs)
 		self.fields['titulo'].label = "Título"
 		self.fields['titulo'].widget.attrs['size'] = 50
 		self.fields['enlace'].widget.attrs['size'] = 50
-		self.fields['duracion'].label = "Duración ('MM:SS')"
+		self.fields['duracion'].label = "Duración ('HH:MM:SS')"
 		self.fields['duracion'].widget = forms.TimeInput(format='%M:%S')
 		self.fields['duracion'].required = False
 			
 	class Meta:
-		model = Recurso
+		model = Video
 		exclude = ['fecha_pub', 'visualizaciones']
 			
 		def clean(self):
-			cleaned_data = super(NuevoRecursoForm, self).clean()
+			cleaned_data = super(NuevoVideoForm, self).clean()
 			enl = escape(self.cleaned_data.get('enlace'))
 			
-			if Recurso.objects.filter(enlace = enl).exists():
-				raise forms.ValidationError(_("Error: El recurso introducido ya existe en la base de datos."))
+			if Video.objects.filter(enlace = enl).exists():
+				raise forms.ValidationError(_("Error: El vídeo introducido ya existe en la base de datos."))
 
+
+class ModVideoForm(forms.ModelForm):
+	def __init__(self, vid, *args, **kwargs):
+		self.vid = vid
+		super(ModVideoForm, self).__init__(*args, **kwargs)
+		self.fields['titulo'].initial = vid.titulo
+		self.fields['descripcion'].initial = vid.descripcion
+		self.fields['duracion'].initial = vid.duracion
+		# Categoria
+
+	class Meta:
+		model = Video
+		fields = ('titulo', 'descripcion', 'duracion')
+	
+	def save(self, commit=True):
+		self.vid.titulo = self.cleaned_data['titulo']
+		self.vid.descripcion = self.cleaned_data['descripcion']
+		self.vid.duracion = self.cleaned_data['duracion']
+		if commit:
+			self.vid.save()
+		return self.vid
+
+# Foros
+"""class NuevoPost (forms.ModelForm):
+	class Meta:
+		model = Post
+		fields = ['content']"""
